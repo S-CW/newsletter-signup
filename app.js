@@ -2,6 +2,9 @@ const express = require('express');
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 const https = require('https');
 const { execPath } = require('process');
+const dotenv = require('dotenv')
+
+dotenv.config();
 const app = express();
 
 app.use(express.urlencoded({extended:true}));
@@ -52,6 +55,7 @@ app.post('/', (req, res) => {
           }
         });
         
+      
         res.sendFile(__dirname + '/success.html');
                
         console.log(
@@ -71,14 +75,9 @@ app.listen(process.env.PORT || 3000, function() {
 });
 
 mailchimp.setConfig({
-  apiKey: "7899491c4bafa76b6aa9d8fc8fd85bcb-us21",
-  server: "us21",
+  apiKey: process.env.MAILCHIMP_MARKETING_API_KEY,
+  server: process.env.MAILCHIMP_SERVER,
 });
-
-
-
-// API Key
-// 7899491c4bafa76b6aa9d8fc8fd85bcb-us21
 
 // Audience ID
 // 175536b6c5

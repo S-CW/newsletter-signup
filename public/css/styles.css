@@ -2,6 +2,10 @@ html,
 body {
   height: 100%;
   background-color: aqua;
+  background-image: url('../img/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
 }
 
 body {
@@ -41,4 +45,8 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.table {
+  background-color: aqua;
 }
