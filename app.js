@@ -5,6 +5,7 @@ const { execPath } = require('process');
 const log = require('node-file-logger');
 const dotenv = require('dotenv')
 const send = require('./email.js');
+const show = require('./utils/handler.js');
 
 dotenv.config();
 const app = express();
@@ -37,7 +38,12 @@ app.post('/', async (req, res, next) =>
   };
 
   try {
-      const response = await mailchimp.lists.addListMember(listId, {
+    const response = await mailchimp.lists.getListMember(listId, email);
+
+    if (response.status === 'subscribed') {
+      res.sendFile(__dirname + '/member.html');
+    } else {
+      const response = mailchimp.lists.addListMember(listId, {
         email_address: subscribingUser.email,
         status: "subscribed",
         merge_fields: {
@@ -45,17 +51,28 @@ app.post('/', async (req, res, next) =>
           LNAME: subscribingUser.lastName
         }
       });
-  
-      res.sendFile(__dirname + '/success.html');
-  
-      log.Info(
-        `Successfully added contact as an audience member. The contact's id is ${response.id
-        }.`
-      );
-      send.signupMail(req);
+
+      show.handleSubscribingUser(res, subscribingUser);
+    }
+    
   } catch (error) {
-    log.Error(error.response.text);
-    res.status(error.status).sendFile(__dirname + '/failure.html');
+    // Add new member to list
+    if (error.status === 404) {
+      try {
+        const response = await mailchimp.lists.addListMember(listId, {
+          email_address: subscribingUser.email,
+          status: "subscribed",
+          merge_fields: {
+            FNAME: subscribingUser.firstName,
+            LNAME: subscribingUser.lastName
+          }
+        });
+
+        show.handleSubscribingUser(res, subscribingUser);
+      } catch (error) {
+        show.handleError(res, error);
+      }
+    }
   }
 });
 
