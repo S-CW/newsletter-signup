@@ -29,7 +29,7 @@ app.post('/', async (req, res, next) =>
   const email = req.body.email;
 
   // creating an object storing the user data
-  const listId = process.env.MAILCHIM_AUDIENCE_ID
+  const listId = process.env.MAILCHIMP_AUDIENCE_ID
   const subscribingUser = {
     firstName: firstName,
     lastName: lastName,
