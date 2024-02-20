@@ -2,8 +2,9 @@ const express = require('express');
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 const https = require('https');
 const { execPath } = require('process');
-const send = require('./email.js');
+const log = require('node-file-logger');
 const dotenv = require('dotenv')
+const send = require('./email.js');
 
 dotenv.config();
 const app = express();
@@ -48,7 +49,7 @@ app.post('/', async (req, res, next) =>
   //         console.log(JSON.parse(data));
   //     })
   // });
-  
+
   try {
       const response = await mailchimp.lists.addListMember(listId, {
         email_address: subscribingUser.email,
@@ -61,20 +62,21 @@ app.post('/', async (req, res, next) =>
   
       res.sendFile(__dirname + '/success.html');
   
-      console.log(
+      log.Info(
         `Successfully added contact as an audience member. The contact's id is ${response.id
         }.`
       );
       send.signupMail(req);
   } catch (error) {
-    res.status(error.status).sendFile(__dirname + '/failure.html')
+    log.Error(error.response.text);
+    res.status(error.status).sendFile(__dirname + '/failure.html');
   }
 });
 
 
 app.listen(process.env.PORT || 3000, function ()
 {
-  console.log('Server is running on port:3000')
+  log.Info('Server is running on port:3000')
 });
 
 mailchimp.setConfig({

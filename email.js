@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const ejs = require('ejs');
 const dotenv = require('dotenv');
+const log = require('node-file-logger');
 dotenv.config();
 
 
@@ -10,7 +11,7 @@ exports.signupMail = (req) =>
     fs.readFile('emails/signup_greeting.ejs', 'utf8', (err, template) =>
     {
         if (err) {
-            console.error('Error reading HTML file:', err);
+            log.Error('Error reading HTML file:', err);
             return;
         }
 
@@ -48,11 +49,10 @@ exports.signupMail = (req) =>
         transporter.sendMail(mailOptions, (err, info) =>
         {
             if (err) {
-                console.log(err);
+                log.Error(err);
             } else {
-                console.log(info)
+                log.Info(info)
             }
         });
-
     })
 }

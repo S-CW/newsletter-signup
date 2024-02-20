@@ -17,4 +17,7 @@ Mailchimp is a marketing automation and email marketing platform that helps busi
 5. By default, the application will run on http://localhost:3000 unless PORT is set by .env
 
 ### Build with
-express.js, ejs, nodemailer, mailchimp api
+express.js, ejs, nodemailer, node-file-logger, mailchimp api
+
+### Extras
+Added logging script for nodejs application cPanel deployment
