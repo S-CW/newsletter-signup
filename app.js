@@ -51,7 +51,7 @@ app.post('/', async (req, res, next) =>
         }
       });
 
-      show.handleSubscribingUser(res, subscribingUser);
+      show.handleSubscribingUser(req, res, subscribingUser);
     }
     
   } catch (error) {
@@ -67,7 +67,7 @@ app.post('/', async (req, res, next) =>
           }
         });
 
-        show.handleSubscribingUser(res, subscribingUser);
+        show.handleSubscribingUser(req, res, subscribingUser);
       } catch (error) {
         show.handleError(res, error);
       }

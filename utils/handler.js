@@ -1,7 +1,8 @@
 const path = require('path');
+const log = require('node-file-logger');
 const send = require('../email.js');
 
-exports.handleSubscribingUser = (res, subscribingUser) =>
+exports.handleSubscribingUser = (req, res, subscribingUser) =>
 {
     res.sendFile(path.join(__dirname, '../success.html'));
 
