@@ -29,26 +29,12 @@ app.post('/', async (req, res, next) =>
   const email = req.body.email;
 
   // creating an object storing the user data
-  const listId = '175536b6c5'
+  const listId = process.env.MAILCHIM_AUDIENCE_ID
   const subscribingUser = {
     firstName: firstName,
     lastName: lastName,
     email: email
   };
-
-  // const jsonData = JSON.stringify(data);
-
-  // const url = 'https://us21.api.mailchimp.com/3.0/lists/175536b6c5'
-  // const options = {
-  //     method: 'POST',
-  //     auth: 'Sing:7899491c4bafa76b6aa9d8fc8fd85bcb-us21'
-  // }
-
-  // const request = https.request(url , options, function(response) {
-  //     response.on('data', function(data) {
-  //         console.log(JSON.parse(data));
-  //     })
-  // });
 
   try {
       const response = await mailchimp.lists.addListMember(listId, {
@@ -83,6 +69,3 @@ mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_MARKETING_API_KEY,
   server: process.env.MAILCHIMP_SERVER,
 });
-
-// Audience ID
-// 175536b6c5
