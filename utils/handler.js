@@ -1,10 +1,8 @@
+const path = require('path');
 
 exports.handleSubscribingUser = (res, subscribingUser) =>
 {
-    res.sendFile(__dirname + '/success.html');
-    res.sendFile(__dirname + '/success.html');
-
-    res.sendFile(__dirname + '/success.html');
+    res.sendFile(path.join(__dirname, '../success.html'));
 
     log.Info(
         `Successfully added contact as audience member. The contact's email address is ${subscribingUser.email}.`
@@ -16,5 +14,5 @@ exports.handleSubscribingUser = (res, subscribingUser) =>
 exports.handleError = (res, error) =>
 {
     log.Error(error.response.text);
-    res.status(error.status).sendFile(__dirname + '/failure.html');
+    res.status(error.status).sendFile(path.join(__dirname, '../failure.html'));
 }
