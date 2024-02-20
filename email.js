@@ -23,18 +23,19 @@ exports.signupMail = (req) =>
         let html = compiledTemplate(templateVars)
 
         let transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
+            host: process.env.MAIL_HOST,
+            port: process.env.MAIL_PORT,
+            secure: true,
             auth: {
-                user: process.env.SMTP_USERNAME,
-                pass: process.env.SMTP_PASSWORD
+                user: process.env.MAIL_USERNAME,
+                pass: process.env.MAIL_PASSWORD
             },
         });
 
 
         mailOptions = {
-            from: "jeffrey.jsl@gmail.com",
-            to: "jaysoncheng999@gmail.com",
+            from: process.env.MAIL_USERNAME,
+            to: req.body.email,
             subject: "Thank You for Joining Us!",
             html: html,
             attachments: [{
