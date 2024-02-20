@@ -4,7 +4,6 @@ const https = require('https');
 const { execPath } = require('process');
 const log = require('node-file-logger');
 const dotenv = require('dotenv')
-const send = require('./email.js');
 const show = require('./utils/handler.js');
 
 dotenv.config();

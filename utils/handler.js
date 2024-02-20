@@ -1,4 +1,5 @@
 const path = require('path');
+const send = require('../email.js');
 
 exports.handleSubscribingUser = (res, subscribingUser) =>
 {
