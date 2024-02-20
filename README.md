@@ -4,6 +4,8 @@ A news letter signup application that makes use of Mailchimp Marketing API to su
 
 Mailchimp is a marketing automation and email marketing platform that helps businesses to reach their customer with ease and manages automated email
 
+Live site URL: [newsletter signup](https://betta-empire.monsterwebdev.com)
+
 ### Installation
 1. Clone the repository or donwload repository zip
 2. Run ```npm install``` to install required dependency
